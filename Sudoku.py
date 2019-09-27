@@ -2,14 +2,12 @@ def solve(sudoku):
 	#using recursion and backtracking, here we go.
 	empties = [(i,j) for i in range(9) for j in range(9) if sudoku[i][j] == 0]
 	predict = lambda i, j: set(range(1,10))-set([sudoku[i][j]])-set([sudoku[y+range(1,10,3)[i//3]][x+range(1,10,3)[j//3]] for y in (-1,0,1) for x in (-1,0,1)])-set(sudoku[i])-set(list(zip(*sudoku))[j])
-	if len(empties)==0:
-		return True
+	if len(empties)==0:return True
 	gap = next(iter(empties))
 	predictions = predict(*gap)
 	for i in predictions:
 		sudoku[gap[0]][gap[1]] = i
-		if solve(sudoku):
-			return True
+		if solve(sudoku):return True
 		sudoku[gap[0]][gap[1]] = 0
 	return False
 
