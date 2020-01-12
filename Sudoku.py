@@ -8,7 +8,10 @@ def solve(sudoku): #using recursion and backtracking, here we go.
 		sudoku[gap[0]][gap[1]] = i
 		if solve(sudoku):return True
 		sudoku[gap[0]][gap[1]] = 0
-	return False                                                                                     
+	return False    
+
+def check(sudoku): #extra function to check solution if correct or wrong :"D
+	return all([set(range(1,10))-set([sudoku[y+i][x+j] for i in (-1,0,1) for j in (-1,0,1)])==set() for y in range(1,9,3) for x in range(1,9,3)]+[set(range(1,10))-set(i)==set() for i in sudoku+list(zip(*sudoku))])
 
 if __name__ == "__main__":
 	sudoku = [[0,0,0,6,0,1,0,0,0], 
@@ -22,3 +25,5 @@ if __name__ == "__main__":
 	          [0,0,2,3,0,4,8,0,0]]
 	solve(sudoku)
 	print(sudoku)
+
+	
